@@ -7,33 +7,40 @@ import DetalleHero from './DetalleHero/DetalleHero';
 const Hero = () => {
     const [heros, setHeros] = useState([]);
     
-    useEffect(async() => {
+    useEffect(() => {
         let participantsMalos = 0;
         let participantsBuenos = 0;
         let power = [];
+        let id = 0;
+        const obtenerUsuario = async() =>{
+            for(let i = 0; power.length !== 6; i++){
+                id = Math.floor((Math.random() * 500) + 1);
+                console.log(id)
+                const { data } = await axios.get(`https://superheroapi.com/api/2870408559879754/${id}`);
 
-        for(let i = 0; power.length !== 6; i++){
-            const id = Math.floor((Math.random() * 200) + 1);
-            const { data } = await axios.get(`https://superheroapi.com/api/2870408559879754/${id}`);
-
-            if(data.powerstats.combat <= 65 && data.powerstats.power <= 65 && participantsMalos < 3){
-                participantsMalos += 1;
-                power = [...power, data];
-            }else if(participantsBuenos < 3 && data.powerstats.combat >= 66 && data.powerstats.power >= 66){
-                participantsBuenos += 1;
-                power = [...power, data];
+                if(data.powerstats.combat <= 65 && data.powerstats.power <= 65 && participantsMalos < 3){
+                    participantsMalos += 1;
+                    power = [...power, data];
+                }else if(participantsBuenos < 3 && data.powerstats.combat >= 66 && data.powerstats.power >= 66){
+                    participantsBuenos += 1;
+                    power = [...power, data];
+                }
+                
+                const eliminaPersonasDuplicadas = (arr) => {
+                    const powerMap = arr.map(hero => {
+                      return [hero.name, hero]
+                    });
+                  
+                    power = [...new Map(powerMap).values()];
+                  }
+                  
+                  eliminaPersonasDuplicadas(power);     
+                
             }
             
-            if(data.powerstats.combat <= 65 && data.powerstats.power <= 65 && participantsMalos < 3){
-                participantsMalos += 1;
-                power = [...power, data];
-            }else if(participantsBuenos < 3 && data.powerstats.combat >= 66 && data.powerstapower >= 66){
-                participantsBuenos += 1;
-                power = [...power, data];
-            }
-            
-        }
         setHeros(power);
+        }
+        obtenerUsuario()
     }, []);
 
     const eliminarHero = (nameHero) => {
