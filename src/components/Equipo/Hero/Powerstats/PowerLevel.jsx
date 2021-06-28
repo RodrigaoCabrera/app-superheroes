@@ -4,21 +4,24 @@ const PowerLevel = ({ powerstats }) => {
 
     const handleClassification = () => {
         
-        let differentPowers = [];
-        let greaterPower;
-        let classificatioByPower = [];
+        let differentPowers = [];//tendrá los diferentes poderes del equipo.
+        let greaterPower;//Guardará el poder de mayor nivel.
+        let classificatioByPower = [];//ARray que guardará los poderes del equipo de mayor a menor.
         
         powerstats.map((power) => {
-            
+            //Agregado de cada uno de los poderes totales del equipo.
             differentPowers = [...power.combat, ...power.speed, ...power.intelligence, ...power.power, ...power.strength, ...power.durability];
+            //Elección del poder de mayor nivel.
             greaterPower = Math.max(...differentPowers);
+            
             return(
                 differentPowers.map((index) => {
+                    //Clasificación de los niveles de poder del equipo de mayor a menor.
                     switch (String(greaterPower)) {
                         case differentPowers[0]:
-                            differentPowers = differentPowers.filter(f => f !== String(greaterPower));
-                            greaterPower = Math.max(...differentPowers);
-                            classificatioByPower = [...classificatioByPower, {'Combat':powerstats[0].combat[0]}]
+                            differentPowers = differentPowers.filter(f => f !== String(greaterPower));//Filtrado de los poderes para extraer el de mayor nivel.
+                            greaterPower = Math.max(...differentPowers);//Elección de un nuevo máximo poder.
+                            classificatioByPower = [...classificatioByPower, {'Combat':powerstats[0].combat[0]}]; //Agregado del poder elegido a al array 'classificatioByPower'.
                             break;
                         case powerstats[0].speed[0]:
                             differentPowers = differentPowers.filter(f => f !== String(greaterPower));
@@ -49,19 +52,20 @@ const PowerLevel = ({ powerstats }) => {
                         default:
                             break;
                     }
+                    return classificatioByPower;
                 })
             )
         });
-
+        //Listado de los niveles de poder del equipo. 
         if(classificatioByPower.length !== 0){
             return (
                 <section className="row">
-                        <div className='col-2 list-group-item'>{Object.getOwnPropertyNames(classificatioByPower[0])[0]}: {Object.values(classificatioByPower[0])[0]}</div>
-                        <div className='col-2 list-group-item'>{Object.getOwnPropertyNames(classificatioByPower[1])[0]}: {Object.values(classificatioByPower[1])[0]}</div>
-                        <div className='col-2 list-group-item'>{Object.getOwnPropertyNames(classificatioByPower[2])[0]}: {Object.values(classificatioByPower[2])[0]}</div>
-                        <div className='col-2 list-group-item'>{Object.getOwnPropertyNames(classificatioByPower[3])[0]}: {Object.values(classificatioByPower[3])[0]}</div>
-                        <div className='col-2 list-group-item'>{Object.getOwnPropertyNames(classificatioByPower[4])[0]}: {Object.values(classificatioByPower[4])[0]}</div>
-                        <div className='col-2 list-group-item'>{Object.getOwnPropertyNames(classificatioByPower[5])[0]}: {Object.values(classificatioByPower[5])[0]}</div>
+                        <div className='col-sm-6 col-md-4 col-lg-2 list-group-item'><b>1. {Object.getOwnPropertyNames(classificatioByPower[0])[0]}:</b> {Object.values(classificatioByPower[0])[0]}</div>
+                        <div className='col-sm-6 col-md-4 col-lg-2 list-group-item'><b>2. {Object.getOwnPropertyNames(classificatioByPower[1])[0]}:</b> {Object.values(classificatioByPower[1])[0]}</div>
+                        <div className='col-sm-6 col-md-4 col-lg-2 list-group-item'><b>3. {Object.getOwnPropertyNames(classificatioByPower[2])[0]}:</b> {Object.values(classificatioByPower[2])[0]}</div>
+                        <div className='col-sm-6 col-md-4 col-lg-2 list-group-item'><b>4. {Object.getOwnPropertyNames(classificatioByPower[3])[0]}:</b> {Object.values(classificatioByPower[3])[0]}</div>
+                        <div className='col-sm-6 col-md-4 col-lg-2 list-group-item'><b>5. {Object.getOwnPropertyNames(classificatioByPower[4])[0]}:</b> {Object.values(classificatioByPower[4])[0]}</div>
+                        <div className='col-sm-6 col-md-4 col-lg-2 list-group-item'><b>6. {Object.getOwnPropertyNames(classificatioByPower[5])[0]}:</b> {Object.values(classificatioByPower[5])[0]}</div>
                     </section>
             )
         }

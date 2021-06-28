@@ -3,7 +3,7 @@ import Equipo from './components/Equipo/Equipo'
 function App() {
 
   return (
-    <div className="container-fluid bg-warning w-100" style={{width:"100%"}}>
+    <div className="h-100 w-100">
       <Equipo />
     </div>
   );

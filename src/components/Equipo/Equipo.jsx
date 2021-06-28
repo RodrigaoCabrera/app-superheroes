@@ -1,12 +1,15 @@
-import React from 'react';
-import Hero from './Hero/Hero';
+import React, { lazy, Suspense } from 'react';
+import Loading from '../Loading/Loading';
 
+const Hero = lazy(() => import('./Hero/Hero'));
 const Equipo = () => {
+    
     return (
         
-        <section className="row w-100">
-            <Hero />
-        </section>
+        <Suspense fallback={<Loading />}>
+            <Hero/>
+        </Suspense>
+        
     )
 }
 
