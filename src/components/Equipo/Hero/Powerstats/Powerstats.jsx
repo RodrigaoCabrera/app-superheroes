@@ -9,14 +9,14 @@ const Powerstats = ({ index }) => {
   }, [heros]);
 
   return powerstats.length !== 0 ? (
-    <div className="container py-3 border-rounded">
+    <div className="container mb-5 border-rounded bg-dark ">
       <h2
         className="text-center my-3 text-primary"
         style={{ display: heros.length !== 0 ? "block" : "none" }}
       >
-        Nivel de poder del equipo
+        Nivel de poder del {index + 1}° equipo
       </h2>
-      <section className="row">
+      <section className="row text-center">
         <div className="col-sm-6 col-md-4 col-lg-2 list-group-item">
           <b>1. {powerstats[index][0].type}:</b> {powerstats[index][0].level}
         </div>

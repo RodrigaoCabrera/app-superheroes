@@ -4,30 +4,28 @@ import { useHeros } from "../Context/HerosContext";
 const SearchBar = ({ searchPokemon }) => {
   const [heroes, setHeroes] = useState();
 
-  const { search, heros, searchHero } = useHeros()
+  const { search, heros } = useHeros()
 
   const inputPokemons = (e) => {
     setHeroes(e.target.value);
     
   };
 
-  
-
   return (
     heros &&
-    <div className="container justify-content-center">
+    <div className="container-fluid justify-content-center py-2 bg-secondary">
       <section className="row d-flex">
         <div className="col-md-7 offset-md-2 col-sm-12">
           <label
             htmlFor="searchBar"
-            className="gb-dark d-flex align-content-end border-0 mb-sm-2"
+            className="d-flex align-content-end border-0 mb-sm-2"
             style={{ height: "2.5rem" }}
           >
             <input
               className="shadow border border-light rounded-pill p-2 w-100 "
               style={{ outline: "none" }}
               type="text"
-              placeholder="Buscar pokemones"
+              placeholder="Buscar superhéroes"
               onChange={inputPokemons}
             />
           </label>

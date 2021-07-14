@@ -18,7 +18,7 @@ export function HerosProvider(props) {
     try {
       let numerosHeroes = 1;
       let heros = [];
-      while (numerosHeroes !== 25) {
+      while (numerosHeroes !== 13) {
         const response = await fetch(
           `https://superheroapi.com/api/2870408559879754/${numerosHeroes}`
         ); //Llamada a la API.
@@ -110,13 +110,16 @@ export function HerosProvider(props) {
   };
 
   const search = (heroes) => {
-    const resultSearch = state.heros.filter((hero) =>
-      hero.name.toLowerCase().includes(heroes.toLowerCase())
-    );
+    console.log(state.heros)
+    let resultSearch = [];
+    for(let i = 0; i < state.heros.length; i++){
+      resultSearch = [...resultSearch, ...state.heros[i]]
+    }
+    let results = resultSearch.filter((hero) => hero.name.toLowerCase().includes(heroes.toLowerCase()))
     setIsViewSearch(true);
     dispatch({
       type: "GET_HERO",
-      payload: resultSearch,
+      payload: results,
     });
   };
 
