@@ -1,5 +1,6 @@
-import React, { lazy, Suspense, useState, useEffect } from "react";
+import React, { lazy, Suspense } from "react";
 import Loading from "../Loading/Loading";
+import Login from "../Login/Login"
 
 import SearchHeros from "../Buscador/SearchHeros";
 
@@ -19,6 +20,7 @@ const Equipo = () => {
     <SearchHeros />
   ) : (
     <Suspense fallback={<Loading />}>
+      <Login />
       <Hero />
     </Suspense>
   );

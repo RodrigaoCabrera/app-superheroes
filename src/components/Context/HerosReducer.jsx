@@ -1,4 +1,4 @@
-export default function (state, action) {
+export default function HerosReducer(state, action) {
   const { payload, type } = action;
 
   switch (type) {

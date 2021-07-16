@@ -1,14 +1,13 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { useHeros } from "../Context/HerosContext";
 
-const SearchBar = ({ searchPokemon }) => {
+const SearchBar = ({ index }) => {
   const [heroes, setHeroes] = useState();
 
   const { search, heros } = useHeros()
 
-  const inputPokemons = (e) => {
+  const inputHeroe = (e) => {
     setHeroes(e.target.value);
-    
   };
 
   return (
@@ -26,7 +25,7 @@ const SearchBar = ({ searchPokemon }) => {
               style={{ outline: "none" }}
               type="text"
               placeholder="Buscar superhéroes"
-              onChange={inputPokemons}
+              onChange={inputHeroe}
             />
           </label>
         </div>
@@ -36,7 +35,7 @@ const SearchBar = ({ searchPokemon }) => {
             {heroes ? (
               <button
                 className="btn btn-dark rounded-circle h-100"
-                onClick={() => {search(heroes)}}
+                onClick={() => {search(heroes, index)}}
               >
                 Buscar
               </button>

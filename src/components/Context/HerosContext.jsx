@@ -5,8 +5,6 @@ import HerosReducer from "./HerosReducer";
 const HerosContext = React.createContext();
 
 export function HerosProvider(props) {
-  const [isViewSearch, setIsViewSearch] = useState(false);
-
   const initialState = {
     heros: [],
     powerstats: [],
@@ -92,35 +90,54 @@ export function HerosProvider(props) {
 
   //Eliminar un héroe de los listados en pantalla.
   const eliminarHero = (nameHero) => {
-    const newName = state.heros.filter(
-      (n) => !n.name.toLowerCase().includes(nameHero.toLowerCase())
-    );
-    dispatch({
-      type: "GET_POWERSTATS",
-      payload: newName,
-    });
-  };
+    let heros = [];
+    for (let i = 0; i < state.heros.length; i++) {
+      heros = [
+        ...heros,
+        state.heros[i].filter(
+          (n) => !n.name.toLowerCase().includes(nameHero.toLowerCase())
+        ),
+      ];
+    }
 
-  const agregarHero = (newHero) => {
-    const newArrayHero = [...state.heros, newHero];
     dispatch({
       type: "GET_HEROS",
-      payload: newArrayHero,
+      payload: heros,
     });
   };
 
-  const search = (heroes) => {
-    console.log(state.heros)
+  const [isViewSearch, setIsViewSearch] = useState(false);
+
+  const search = (heroes, index) => {
     let resultSearch = [];
-    for(let i = 0; i < state.heros.length; i++){
-      resultSearch = [...resultSearch, ...state.heros[i]]
+    for (let i = 0; i < state.heros.length; i++) {
+      resultSearch = [...resultSearch, ...state.heros[i]];
     }
-    let results = resultSearch.filter((hero) => hero.name.toLowerCase().includes(heroes.toLowerCase()))
+    const results = resultSearch.filter((hero) =>
+      hero.name.toLowerCase().includes(heroes.toLowerCase())
+    );
+    results[0].equipo = index;
     setIsViewSearch(true);
     dispatch({
       type: "GET_HERO",
       payload: results,
     });
+  };
+
+  const [addHero, setAddHero] = useState(false);
+  const agregarHero = (hero) => {
+    let newHero = state.heros;
+    newHero[hero.equipo].push(hero);
+
+    dispatch({
+      type: "GET_HERO",
+      payload: [],
+    });
+    dispatch({
+      type: "GET_HEROS",
+      payload: newHero,
+    });
+    setAddHero(true);
   };
 
   const powerstatsLevel = () => {
@@ -139,7 +156,7 @@ export function HerosProvider(props) {
 
     for (let j = 0; j < state.heros?.length; j++) {
       for (let i = 0; i < key.length; i++) {
-        for (let d = 0; d < 6; d++) {
+        for (let d = 0; d < state.heros[j].length; d++) {
           let clave = key[i];
           powerTotal = [
             ...powerTotal,
@@ -183,9 +200,7 @@ export function HerosProvider(props) {
       classificatioByPower = [
         ...classificatioByPower,
         powerLevel[i].sort(function (a, b) {
-          if (a.level > b.level) {
-            return -1;
-          }
+          return a.level > b.level ? -1 : null;
         }),
       ];
     }
@@ -210,6 +225,8 @@ export function HerosProvider(props) {
         isViewSearch,
         setIsViewSearch,
         agregarHero,
+        addHero,
+        setAddHero,
       }}
       {...props}
     />

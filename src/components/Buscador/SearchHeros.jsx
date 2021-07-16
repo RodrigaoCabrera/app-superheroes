@@ -1,17 +1,24 @@
-import React, { useState } from "react";
-import ReactCardFlip from "react-card-flip";
+import React from "react";
 import { useHeros } from "../Context/HerosContext";
-import DetalleHero from "../Equipo/Hero/DetalleHero/DetalleHero";
 
 const SearchHeros = () => {
-  const { searchHeros, agregarHero, setIsViewSearch } = useHeros();
-  console.log(searchHeros);
-  //Uso de la librería react-card-flip para mostrar más detalles de un héroe.
-  const [flipped, setFlipped] = useState("");
-  const handleFlipped = (name) => {
-    //Al dar click en 'Detalles' de un héroe se envía su nombre. El cual se usa en una condición para dar vuelta la carta y mostrar los detalles.
-    flipped === name ? setFlipped("") : setFlipped(name);
-  };
+  const { searchHeros, agregarHero, setIsViewSearch, addHero, setAddHero } = useHeros();
+  
+  const addingHero = () => {
+    if(addHero){
+      return(
+        <div className="col-12 mt-5 text-warning h4 text-center">
+          ¡Superhéroe agregado exitosamente!
+        </div>)
+      } else {
+        return(
+          <div className="col-12 mt-5 text-warning h4 text-center">
+            No se ha encontrado ningún superhéroe.
+          </div>
+        )
+      };
+      
+  }
 
   return (
     <div className="d-flex justify-content-center items-content-center lead">
@@ -23,6 +30,7 @@ const SearchHeros = () => {
           <span
             onClick={() => {
               setIsViewSearch(false);
+              setAddHero(false);
             }}
             className="bg-danger text-white shadow border border-1 rounded-circle p-2 px-3 cursor-pointer"
             style={{ cursor: "pointer" }}
@@ -49,14 +57,13 @@ const SearchHeros = () => {
                         >
                           <img
                             className="text-center"
-                            alt="image de héroe"
+                            alt="image de un héroe"
                             style={{
                               maxWidth: "100%",
                               height: "9rem",
                               borderRadius: "100%",
                             }}
                             src={hero.image.url}
-                            alt=""
                           />
                         </div>
                       </section>
@@ -74,9 +81,7 @@ const SearchHeros = () => {
                 );
               })
             ) : (
-              <div className="col-12 mt-5 text-warning h4 text-center">
-                No se ha encontrado ningún superhéroe.
-              </div>
+              addingHero()
             )}
           </div>
         </div>

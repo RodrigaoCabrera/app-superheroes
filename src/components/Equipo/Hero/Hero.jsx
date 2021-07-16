@@ -1,5 +1,4 @@
-import React, { useState, useMemo, Fragment } from "react";
-import axios from "axios";
+import React, { useState, useMemo } from "react";
 import ReactCardFlip from "react-card-flip";
 import Powerstats from "./Powerstats/Powerstats";
 import DetalleHero from "./DetalleHero/DetalleHero";
@@ -9,8 +8,11 @@ import { useHeros } from "../../Context/HerosContext";
 
 const Hero = () => {
   const { getAllHeros, eliminarHero, heros } = useHeros();
+ 
   useMemo(() => {
-    getAllHeros();
+    if(heros.length === 0){
+      getAllHeros();
+    }
   }, []);
 
   //Uso de la librería react-card-flip para mostrar más detalles de un héroe.
@@ -20,13 +22,13 @@ const Hero = () => {
     flipped === name ? setFlipped("") : setFlipped(name);
   };
 
-  return heros ? (
-    <div className="bg-secondary">
-      <SearchBar />
+  return heros[0] ? (
+    <div className="bg-secondary py-3">
       <div className="container h-100">
         {heros.map((arrayHero, index) => {
           return (
-            <div className="row bg-dark d-flex justify-content-center my-1 px-2 rounded">
+            <div className="row bg-dark d-flex justify-content-center my-3 px-2 rounded" key={index}>
+              {arrayHero.length !== 6 && <SearchBar index={index}/>}
               <h1
                 className="text-center text-white rounded-pill bg-primary pb-2 mt-2 mx-2"
                 style={{ display: heros.length !== 0 ? "block" : "none" }}
@@ -54,7 +56,7 @@ const Hero = () => {
                               height: "9rem",
                               borderRadius: "100%",
                             }}
-                            src={hero.image.url}
+                            src={hero.image?.url}
                           />
                         </div>
                       </section>

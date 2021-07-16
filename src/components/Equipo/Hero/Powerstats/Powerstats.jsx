@@ -9,7 +9,7 @@ const Powerstats = ({ index }) => {
   }, [heros]);
 
   return powerstats.length !== 0 ? (
-    <div className="container mb-5 border-rounded bg-dark ">
+    <div className="container mb-5 border-rounded bg-dark">
       <h2
         className="text-center my-3 text-primary"
         style={{ display: heros.length !== 0 ? "block" : "none" }}
