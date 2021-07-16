@@ -5,6 +5,10 @@ import HerosReducer from "./HerosReducer";
 const HerosContext = React.createContext();
 
 export function HerosProvider(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLogin, setIslogin] = useState(null);
+
   const initialState = {
     heros: [],
     powerstats: [],
@@ -116,8 +120,13 @@ export function HerosProvider(props) {
     const results = resultSearch.filter((hero) =>
       hero.name.toLowerCase().includes(heroes.toLowerCase())
     );
-    results[0].equipo = index;
+    console.log(results)
+    if(results.length !== 0) { 
+      results[0].equipo = index 
+    }
+
     setIsViewSearch(true);
+
     dispatch({
       type: "GET_HERO",
       payload: results,
@@ -227,6 +236,12 @@ export function HerosProvider(props) {
         agregarHero,
         addHero,
         setAddHero,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        isLogin,
+        setIslogin
       }}
       {...props}
     />

@@ -12,7 +12,7 @@ const SearchBar = ({ index }) => {
 
   return (
     heros &&
-    <div className="container-fluid justify-content-center py-2 bg-secondary">
+    <div className="container-fluid justify-content-center py-2">
       <section className="row d-flex">
         <div className="col-md-7 offset-md-2 col-sm-12">
           <label
@@ -34,14 +34,14 @@ const SearchBar = ({ index }) => {
           <section style={{ height: "2.5rem" }}>
             {heroes ? (
               <button
-                className="btn btn-dark rounded-circle h-100"
+                className="btn btn-white bg-success rounded-circle h-100"
                 onClick={() => {search(heroes, index)}}
               >
                 Buscar
               </button>
             ) : (
               <button
-                className="btn btn-dark rounded-circle h-100"
+                className="btn btn-white bg-success rounded-circle h-100"
                 onClick={() => {search(heroes)}}
                 disabled
               >

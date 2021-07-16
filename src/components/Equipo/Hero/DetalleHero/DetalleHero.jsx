@@ -2,6 +2,7 @@ import React from 'react'
 
 //Mostrar los detalles extra de cada héroe.
 const DetalleHero = ({ hero }) => {
+    console.log(hero)
     return (
         <div>
            <ul className='list-group '>

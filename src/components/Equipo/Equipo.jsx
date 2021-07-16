@@ -14,14 +14,13 @@ export default () => (
 );
 
 const Equipo = () => {
-  const { isViewSearch } = useHeros();
+  const { isViewSearch, isLogin } = useHeros();
+
+  
 
   return isViewSearch ? (
     <SearchHeros />
   ) : (
-    <Suspense fallback={<Loading />}>
-      <Login />
-      <Hero />
-    </Suspense>
+    isLogin ? <Suspense fallback={<Loading />}><Hero /></Suspense> : <Login />
   );
 };
