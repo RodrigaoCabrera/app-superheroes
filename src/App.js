@@ -3,7 +3,7 @@ import Equipo from './components/Equipo/Equipo'
 function App() {
 
   return (
-    <div className="d-flex align-content-center justify-content-center h-100 w-100">
+    <div className="d-flex flex-column align-content-center justify-content-center">
       <Equipo />
     </div>
   );

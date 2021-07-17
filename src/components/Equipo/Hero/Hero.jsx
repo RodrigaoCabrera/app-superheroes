@@ -8,9 +8,9 @@ import { useHeros } from "../../Context/HerosContext";
 
 const Hero = () => {
   const { getAllHeros, eliminarHero, heros } = useHeros();
- 
+
   useMemo(() => {
-    if(heros.length === 0){
+    if (heros.length === 0) {
       getAllHeros();
     }
   }, []);
@@ -23,12 +23,15 @@ const Hero = () => {
   };
 
   return heros[0] ? (
-    <div className="bg-secondary py-3">
-      <div className="container h-100">
+    <div className="w-100 d-flex py-3">
+      <div className="container">
         {heros.map((arrayHero, index) => {
           return (
-            <div className="row bg-dark d-flex justify-content-center my-3 px-2 rounded" key={index}>
-              {arrayHero.length !== 6 && <SearchBar index={index}/>}
+            <div
+              className="row bg-dark d-flex justify-content-center my-3 px-2 rounded"
+              key={index}
+            >
+              {arrayHero.length !== 6 && <SearchBar index={index} />}
               <h1
                 className="text-center text-white rounded-pill bg-primary pb-2 mt-2 mx-2"
                 style={{ display: heros.length !== 0 ? "block" : "none" }}

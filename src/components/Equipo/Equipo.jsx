@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import Loading from "../Loading/Loading";
-import Login from "../Login/Login"
+import Login from "../Login/Login";
+import Header from "../Header/Header";
 
 import SearchHeros from "../Buscador/SearchHeros";
 
@@ -16,11 +17,14 @@ export default () => (
 const Equipo = () => {
   const { isViewSearch, isLogin } = useHeros();
 
-  
-
   return isViewSearch ? (
     <SearchHeros />
+  ) : isLogin ? (
+    <Suspense fallback={<Loading />}>
+      <Header />
+      <Hero />
+    </Suspense>
   ) : (
-    isLogin ? <Suspense fallback={<Loading />}><Hero /></Suspense> : <Login />
+    <Login />
   );
 };

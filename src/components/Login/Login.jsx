@@ -7,22 +7,27 @@ const Login = () => {
     useHeros();
 
   const [msgError, setMsgError] = useState(null);
-  console.log(isLogin);
-  console.log(email);
+
+  useEffect(() => {
+    setMsgError(() => {
+      if (email.length === 0 && password.length === 0) {
+        setMsgError("");
+      } else {
+        setMsgError(msgError);
+      }
+    });
+  }, [email, password]);
 
   const login = () => {
     setIslogin(false);
+    setMsgError("");
     axios
       .post(`http://challenge-react.alkemy.org/`, {
         email: email,
         password: password,
       })
       .catch(function (error) {
-        if (error.response) {
-          setMsgError("Error");
-        } else {
-          setMsgError("Error");
-        }
+        setMsgError("¡El email y/o password son incorrectos!");
       })
       .then((res) => {
         if (res) {
@@ -35,9 +40,12 @@ const Login = () => {
   };
 
   return (
-    <div className="container bg-dark h-75 w-25 m-auto d-flex justify-content-center rounded">
-      <div className="row align-self-center">
-        <div className="col">
+    <div
+      className="container lead m-auto d-flex flex-column justify-content-center"
+      style={{ height: "100vh" }}
+    >
+      <div className="row align-self-center bg-dark rounded shadow-lg border border-primary border-bottom-0 p-4">
+        <div className="col-12">
           <form className="form-group">
             <input
               onChange={(e) => {
@@ -56,12 +64,31 @@ const Login = () => {
               placeholder="Introduce tu password"
             />
           </form>
-          <button onClick={login} className="btn btn-success btn-block w-100 mt-4">
-            Iniciar sesión
-          </button>
-          {msgError !== null ? <div>{msgError}</div> : <span></span>}
+          {isLogin === null ? (
+            <button
+              onClick={login}
+              className="btn btn-success btn-block w-100 mt-4"
+            >
+              Iniciar sesión
+            </button>
+          ) : (
+            <button
+              onClick={login}
+              className="btn btn-success btn-block w-100 mt-4"
+              disabled
+            >
+              <div className="spinner-border spinner-border-sm" role="status">
+                <span class="sr-only"></span>
+              </div>
+            </button>
+          )}
         </div>
       </div>
+      {msgError !== null ? (
+        <p className="text-warning text-center h6">{msgError}</p>
+      ) : (
+        <span></span>
+      )}
     </div>
   );
 };
