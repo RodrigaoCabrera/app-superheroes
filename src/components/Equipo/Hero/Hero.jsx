@@ -11,7 +11,6 @@ const Hero = () => {
   const { getAllHeros, eliminarHero, allHeros, heros, getHeros, loadHerosInLocalStorage } = useHeros();
 
   useEffect(() => {
-    loadHerosInLocalStorage()
     if (allHeros.length === 0) {
       getAllHeros();
     } else if (heros.length === 0) {

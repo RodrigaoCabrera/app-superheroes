@@ -8,16 +8,6 @@ const Login = () => {
 
   const [msgError, setMsgError] = useState(null);
 
-  useEffect(() => {
-    setMsgError(() => {
-      if (email.length === 0 && password.length === 0) {
-        setMsgError("");
-      } else {
-        setMsgError(msgError);
-      }
-    });
-  }, [email, password]);
-
   const login = () => {
     setIslogin(false);
     setMsgError("");
@@ -50,18 +40,24 @@ const Login = () => {
             <input
               onChange={(e) => {
                 setEmail(e.target.value);
+                setMsgError("");
               }}
               className="form-control"
               type="text"
               placeholder="Introduce tu email"
+              aria-required="true"
+              required
             />
             <input
               onChange={(e) => {
                 setPassword(e.target.value);
+                setMsgError("");
               }}
               className="form-control mt-4"
               type="password"
               placeholder="Introduce tu password"
+              aria-required="true"
+              required
             />
           </form>
           {isLogin === null ? (

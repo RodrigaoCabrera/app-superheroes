@@ -21,12 +21,11 @@ const SearchHeros = () => {
   }
 
   return (
-    <div className="d-flex justify-content-center items-content-center lead">
+    <div className="d-flex py-2 justify-content-center items-content-center lead bg-secondary">
       <div
-        className="container p-3 rounded bg-secondary position-absolute d-flex flex-column mt-4 overflow-auto shadow-white"
-        style={{ height: "80vh" }}
+        className={`container p-3 rounded d-flex flex-column mt-4 overflow-auto shadow-white ${searchHeros.length !== 0 ? 'bg-primary' : 'bg-danger'}`} style={{height:"100vh"}}
       >
-        <section className="mb-4 d-flex align-self-end position-fixed">
+        <section className={`mb-4 d-flex align-self-end ${searchHeros.length !== 0 && 'position-fixed'}`}>
           <span
             onClick={() => {
               setIsViewSearch(false);

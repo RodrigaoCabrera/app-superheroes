@@ -19,15 +19,12 @@ const Equipo = () => {
 
   return isViewSearch ? (
     <SearchHeros />
-  ) : isLogin ? 
-  (
+  ) : isLogin ? (
     <Suspense fallback={<Loading />}>
       <Header />
       <Hero />
     </Suspense>
-  ) 
-  :
-  (
+  ) : (
     <Login />
-  )
+  );
 };

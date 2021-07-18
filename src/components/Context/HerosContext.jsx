@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import axios from "axios";
 import HerosReducer from "./HerosReducer";
 
@@ -27,6 +27,9 @@ export function HerosProvider(props) {
           payload: heroes,
         });
     };
+  useEffect(() => {
+    loadHerosInLocalStorage()
+  }, [])
 
   const getHeros = () => {
     try {
@@ -49,12 +52,12 @@ export function HerosProvider(props) {
       console.log(error);
     }
   };
-
+  console.log(state.allHeros)
   const getAllHeros = async () => {
     try {
       let numerosHeroes = 1;
       let heros = [];
-      while (numerosHeroes !== 91) {
+      while (numerosHeroes !== 732) {
         const response = await fetch(
           `https://superheroapi.com/api/2870408559879754/${numerosHeroes}`
         ); //Llamada a la API.
@@ -63,6 +66,7 @@ export function HerosProvider(props) {
         numerosHeroes++;
       }
       const results = await Promise.all(heros);
+      
       window.localStorage.setItem(localStorageKey, JSON.stringify(results))
       /*
       //Eliminar heroes repetidos en el array power.
