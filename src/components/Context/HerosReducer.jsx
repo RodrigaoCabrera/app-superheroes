@@ -12,6 +12,11 @@ export default function HerosReducer(state, action) {
         ...state,
         powerstats: payload,
       };
+    case "GET_ALL_HEROS":
+      return {
+        ...state,
+        allHeros: payload,
+      };
     case "GET_HERO":
       return {
         ...state,

@@ -10,17 +10,51 @@ export function HerosProvider(props) {
   const [isLogin, setIslogin] = useState(null);
 
   const initialState = {
+    allHeros: [],
     heros: [],
     powerstats: [],
     searchHeros: [],
   };
   const [state, dispatch] = useReducer(HerosReducer, initialState);
 
+  const localStorageKey = "super_heroes";
+  const loadHerosInLocalStorage = () => {
+      const heroes =
+        JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
+        
+        dispatch({
+          type: "GET_ALL_HEROS",
+          payload: heroes,
+        });
+    };
+
+  const getHeros = () => {
+    try {
+      let numerosHeroes = 0;
+      let heros = [];
+      while (numerosHeroes !== 12) {
+        heros = [...heros, state.allHeros[numerosHeroes]];
+        numerosHeroes++;
+      }
+      let results = [];
+      while (heros.length !== 0) {
+        results = [...results, heros.splice(0, 6)];
+      }
+      //Enviar result al reducer para guardar héroes elegidos en un estado.
+      dispatch({
+        type: "GET_HEROS",
+        payload: results,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getAllHeros = async () => {
     try {
       let numerosHeroes = 1;
       let heros = [];
-      while (numerosHeroes !== 13) {
+      while (numerosHeroes !== 91) {
         const response = await fetch(
           `https://superheroapi.com/api/2870408559879754/${numerosHeroes}`
         ); //Llamada a la API.
@@ -29,10 +63,7 @@ export function HerosProvider(props) {
         numerosHeroes++;
       }
       const results = await Promise.all(heros);
-      let equipo = [];
-      while (results.length !== 0) {
-        equipo = [...equipo, results.splice(0, 6)];
-      }
+      window.localStorage.setItem(localStorageKey, JSON.stringify(results))
       /*
       //Eliminar heroes repetidos en el array power.
       const eliminaHeroesDuplicados = (results) => {
@@ -46,8 +77,8 @@ export function HerosProvider(props) {
     */
       //Enviar result al reducer para guardar héroes elegidos en un estado.
       dispatch({
-        type: "GET_HEROS",
-        payload: equipo,
+        type: "GET_ALL_HEROS",
+        payload: results,
       });
     } catch (error) {
       console.log(error);
@@ -93,16 +124,12 @@ export function HerosProvider(props) {
 */
 
   //Eliminar un héroe de los listados en pantalla.
-  const eliminarHero = (nameHero) => {
-    let heros = [];
-    for (let i = 0; i < state.heros.length; i++) {
-      heros = [
-        ...heros,
-        state.heros[i].filter(
-          (n) => !n.name.toLowerCase().includes(nameHero.toLowerCase())
-        ),
-      ];
-    }
+  const eliminarHero = (nameHero, index) => {
+    let heros = state.heros;
+    let deleteHero = heros[index].filter(
+      (hero) => !hero.name.toLowerCase().includes(nameHero.toLowerCase())
+    );
+    heros[index] = deleteHero;
 
     dispatch({
       type: "GET_HEROS",
@@ -113,16 +140,12 @@ export function HerosProvider(props) {
   const [isViewSearch, setIsViewSearch] = useState(false);
 
   const search = (heroes, index) => {
-    let resultSearch = [];
-    for (let i = 0; i < state.heros.length; i++) {
-      resultSearch = [...resultSearch, ...state.heros[i]];
-    }
-    const results = resultSearch.filter((hero) =>
+    const results = state.allHeros.filter((hero) =>
       hero.name.toLowerCase().includes(heroes.toLowerCase())
     );
-    console.log(results)
-    if(results.length !== 0) { 
-      results[0].equipo = index 
+    console.log(results);
+    if (results.length !== 0) {
+      results[0].equipo = index;
     }
 
     setIsViewSearch(true);
@@ -224,10 +247,12 @@ export function HerosProvider(props) {
   return (
     <HerosContext.Provider
       value={{
+        allHeros: state.allHeros,
         heros: state.heros,
         powerstats: state.powerstats,
         searchHeros: state.searchHeros,
         getAllHeros,
+        getHeros,
         eliminarHero,
         search,
         powerstatsLevel,
@@ -241,7 +266,8 @@ export function HerosProvider(props) {
         password,
         setPassword,
         isLogin,
-        setIslogin
+        setIslogin,
+        loadHerosInLocalStorage
       }}
       {...props}
     />

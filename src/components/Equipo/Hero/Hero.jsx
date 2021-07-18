@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import ReactCardFlip from "react-card-flip";
 import Powerstats from "./Powerstats/Powerstats";
 import DetalleHero from "./DetalleHero/DetalleHero";
@@ -7,13 +7,19 @@ import SearchBar from "../../Buscador/SearchBar";
 import { useHeros } from "../../Context/HerosContext";
 
 const Hero = () => {
-  const { getAllHeros, eliminarHero, heros } = useHeros();
+  
+  const { getAllHeros, eliminarHero, allHeros, heros, getHeros, loadHerosInLocalStorage } = useHeros();
 
-  useMemo(() => {
-    if (heros.length === 0) {
+  useEffect(() => {
+    loadHerosInLocalStorage()
+    if (allHeros.length === 0) {
       getAllHeros();
+    } else if (heros.length === 0) {
+      getHeros();
     }
-  }, []);
+  }, [allHeros]);
+
+  
 
   //Uso de la librería react-card-flip para mostrar más detalles de un héroe.
   const [flipped, setFlipped] = useState("");
@@ -109,20 +115,14 @@ const Hero = () => {
                         </button>
                       )}
                       {arrayHero.length !== 6 ? (
-                        <button
-                          className="btn btn-danger w-100"
-                          onClick={() => {
-                            eliminarHero(hero.name);
-                          }}
-                          disabled
-                        >
+                        <button className="btn btn-danger w-100" disabled>
                           Eliminar
                         </button>
                       ) : (
                         <button
                           className="btn btn-danger w-100"
                           onClick={() => {
-                            eliminarHero(hero.name);
+                            eliminarHero(hero.name, index);
                           }}
                         >
                           Eliminar
