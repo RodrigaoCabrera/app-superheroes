@@ -128,19 +128,7 @@ export function HerosProvider(props) {
 */
 
   //Eliminar un héroe de los listados en pantalla.
-  const eliminarHero = (nameHero, index) => {
-    let heros = state.heros;
-    let deleteHero = heros[index].filter(
-      (hero) => !hero.name.toLowerCase().includes(nameHero.toLowerCase())
-    );
-    heros[index] = deleteHero;
-
-    dispatch({
-      type: "GET_HEROS",
-      payload: heros,
-    });
-  };
-
+  
   const [isViewSearch, setIsViewSearch] = useState(false);
 
   const search = (heroes, index) => {
@@ -243,12 +231,27 @@ export function HerosProvider(props) {
       ];
     }
 
-    //console.log(allPowerstats)
     dispatch({
       type: "GET_POWERSTATS",
       payload: classificatioByPower,
     });
   };
+  
+  const eliminarHero = (nameHero, index) => {
+    let heros = state.heros;
+    let deleteHero = heros[index].filter(
+      (hero) => !hero.name.toLowerCase().includes(nameHero.toLowerCase())
+    );
+    heros[index] = deleteHero;
+
+    dispatch({
+      type: "GET_HEROS",
+      payload: heros,
+    });
+    powerstatsLevel()
+  };
+
+  
 
   return (
     <HerosContext.Provider

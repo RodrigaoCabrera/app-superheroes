@@ -37,6 +37,8 @@ const Login = () => {
       <div className="row align-self-center bg-dark rounded shadow-lg border border-primary border-bottom-0 p-4">
         <div className="col-12">
           <form className="form-group">
+          <div className="text-success">correo: challenge@alkemy.org</div>
+          <div className="text-success">contraseña: react</div>
             <input
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -44,7 +46,7 @@ const Login = () => {
               }}
               className="form-control"
               type="text"
-              placeholder="Introduce tu email"
+              placeholder="Introduce tu correo"
               aria-required="true"
               required
             />
@@ -55,7 +57,7 @@ const Login = () => {
               }}
               className="form-control mt-4"
               type="password"
-              placeholder="Introduce tu password"
+              placeholder="Introduce tu contraseña"
               aria-required="true"
               required
             />
