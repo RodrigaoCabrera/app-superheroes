@@ -19,17 +19,17 @@ export function HerosProvider(props) {
 
   const localStorageKey = "super_heroes";
   const loadHerosInLocalStorage = () => {
-      const heroes =
-        JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
-        
-        dispatch({
-          type: "GET_ALL_HEROS",
-          payload: heroes,
-        });
-    };
+    const heroes =
+      JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
+
+    dispatch({
+      type: "GET_ALL_HEROS",
+      payload: heroes,
+    });
+  };
   useEffect(() => {
-    loadHerosInLocalStorage()
-  }, [])
+    loadHerosInLocalStorage();
+  }, []);
 
   const getHeros = () => {
     try {
@@ -52,7 +52,7 @@ export function HerosProvider(props) {
       console.log(error);
     }
   };
-  console.log(state.allHeros)
+
   const getAllHeros = async () => {
     try {
       let numerosHeroes = 1;
@@ -66,8 +66,8 @@ export function HerosProvider(props) {
         numerosHeroes++;
       }
       const results = await Promise.all(heros);
-      
-      window.localStorage.setItem(localStorageKey, JSON.stringify(results))
+
+      window.localStorage.setItem(localStorageKey, JSON.stringify(results));
       /*
       //Eliminar heroes repetidos en el array power.
       const eliminaHeroesDuplicados = (results) => {
@@ -147,9 +147,11 @@ export function HerosProvider(props) {
     const results = state.allHeros.filter((hero) =>
       hero.name.toLowerCase().includes(heroes.toLowerCase())
     );
-    console.log(results);
+
     if (results.length !== 0) {
-      results[0].equipo = index;
+      for (let i = 0; i < results.length; i++) {
+        results[i].equipo = index;
+      }
     }
 
     setIsViewSearch(true);
@@ -161,9 +163,9 @@ export function HerosProvider(props) {
   };
 
   const [addHero, setAddHero] = useState(false);
-  const agregarHero = (hero) => {
+  const agregarHero = (hero, idx) => {
     let newHero = state.heros;
-    newHero[hero.equipo].push(hero);
+    newHero[state.searchHeros[idx].equipo].push(hero);
 
     dispatch({
       type: "GET_HERO",
@@ -271,7 +273,7 @@ export function HerosProvider(props) {
         setPassword,
         isLogin,
         setIslogin,
-        loadHerosInLocalStorage
+        loadHerosInLocalStorage,
       }}
       {...props}
     />

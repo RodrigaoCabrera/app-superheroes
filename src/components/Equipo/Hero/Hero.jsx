@@ -7,8 +7,14 @@ import SearchBar from "../../Buscador/SearchBar";
 import { useHeros } from "../../Context/HerosContext";
 
 const Hero = () => {
-  
-  const { getAllHeros, eliminarHero, allHeros, heros, getHeros, loadHerosInLocalStorage } = useHeros();
+  const {
+    getAllHeros,
+    eliminarHero,
+    allHeros,
+    heros,
+    getHeros,
+    loadHerosInLocalStorage,
+  } = useHeros();
 
   useEffect(() => {
     if (allHeros.length === 0) {
@@ -17,8 +23,6 @@ const Hero = () => {
       getHeros();
     }
   }, [allHeros]);
-
-  
 
   //Uso de la librería react-card-flip para mostrar más detalles de un héroe.
   const [flipped, setFlipped] = useState("");
