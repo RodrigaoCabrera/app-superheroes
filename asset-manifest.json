@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/app-superheroes/static/js/main.ddbf7e81.chunk.js",
+    "main.js.map": "/app-superheroes/static/js/main.ddbf7e81.chunk.js.map",
+    "runtime-main.js": "/app-superheroes/static/js/runtime-main.efa4f067.js",
+    "runtime-main.js.map": "/app-superheroes/static/js/runtime-main.efa4f067.js.map",
+    "static/css/2.62cbf21c.chunk.css": "/app-superheroes/static/css/2.62cbf21c.chunk.css",
+    "static/js/2.9db2cf58.chunk.js": "/app-superheroes/static/js/2.9db2cf58.chunk.js",
+    "static/js/2.9db2cf58.chunk.js.map": "/app-superheroes/static/js/2.9db2cf58.chunk.js.map",
+    "static/js/3.6aface6f.chunk.js": "/app-superheroes/static/js/3.6aface6f.chunk.js",
+    "static/js/3.6aface6f.chunk.js.map": "/app-superheroes/static/js/3.6aface6f.chunk.js.map",
+    "index.html": "/app-superheroes/index.html",
+    "static/css/2.62cbf21c.chunk.css.map": "/app-superheroes/static/css/2.62cbf21c.chunk.css.map",
+    "static/js/2.9db2cf58.chunk.js.LICENSE.txt": "/app-superheroes/static/js/2.9db2cf58.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.efa4f067.js",
+    "static/css/2.62cbf21c.chunk.css",
+    "static/js/2.9db2cf58.chunk.js",
+    "static/js/main.ddbf7e81.chunk.js"
+  ]
+}
